@@ -1,0 +1,5 @@
+The Spider yields Requests, which are sent to the Scheduler.
+The Scheduler sends Requests to the Downloader, which executes them against the distant website.
+The Responses are sent to the Spider for parsing.
+The Spider parses and yields Items, which are sent to the Item Pipeline.
+The Item Pipeline is responsible for processing them and storing them.

@@ -3,9 +3,8 @@ from scrapy.linkextractor import LinkExtractor
 from scrapy.spiders import Rule, CrawlSpider
 from myfarmSpider.items import MyfarmspiderItem
 
-
 #scrapy crawl article -o articles.json -t json/csv/xml
-keywords = ['livestock']
+keywords = ['crop diseases']
 class infoSpider(CrawlSpider):
     name = "find_disease"
     start_urls = []
@@ -39,24 +38,24 @@ class infoSpider(CrawlSpider):
     def parse_items(self, response, keyword):
         items = []
 
-        item = MyfarmspiderItem()
-        item['all_data'] = set(response.xpath('body//p/text()').extract())
+        #item = MyfarmspiderItem()
+        #item['all_data'] = set(response.xpath('body//p/text()').extract())
         #item['all_data'] = set(response.xpath('//title/text()').extract())
-        items.append(item)
-        items = list(dict.fromkeys(items))
+        #items.append(item)
+        #items = list(dict.fromkeys(items))
 
         '''# Checks if there is a next page link, and keeping parsing if True    
         next_page = response.xpath('(//a[contains(., "Next")])[1]/@href').extract_first()
         if next_page:
             yield scrapy.Request(response.urljoin(next_page), callback=self.parse)'''
         # Only extract canonicalized and unique links (with respect to the current page)
-        '''links = LinkExtractor(canonicalize=True, unique=True).extract_links(response)
+        links = LinkExtractor(canonicalize=True, unique=True).extract_links(response)
         for link in links:
             item = MyfarmspiderItem()
             #item['internal_url'] = response.url#url_from
-            #item['internal_url'] = link.url
+            item['internal_url'] = link.url
             item['all_data'] = set(response.xpath('//title/text()').extract())
             items.append(item)
-            #items = list(dict.fromkeys(items))'''
+            items = list(dict.fromkeys(items))
         return items
     

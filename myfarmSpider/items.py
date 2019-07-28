@@ -18,10 +18,13 @@ class CropSpiderItem(scrapy.Item):
     name = scrapy.Field()
     email = scrapy.Field()
 
-'''class Diseases(scrapy.Item):
-    name = scrapy.Field()
+class DiseasesItem(scrapy.Item):
+    crop_name = scrapy.Field()
+    disease_name = scrapy.Field()
+    signs_and_symptoms = scrapy.Field()
+    control = scrapy.Field()
 
-class getInternalLinks(scrapy.Item):
+'''class getInternalLinks(scrapy.Item):
     
 
 class getAllData(scrapy.Item):
